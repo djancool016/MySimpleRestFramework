@@ -1,6 +1,6 @@
 const {pool} = require('../database').init()
 const poolConnection = pool.createPool()
-const loging = true
+const loging = false
 
 class BaseModel {
 

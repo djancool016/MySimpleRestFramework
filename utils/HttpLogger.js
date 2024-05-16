@@ -65,13 +65,13 @@ function statusLogger({code, message = ''}){
  * @param {string} [param.message=''] - Custom log message.
  * @returns {object} - Log object containing code, data, status, and message.
  */
-function dataLogger({data, message = ''}){
+function dataLogger({data, message = '', code = 200}){
 
     try {
 
         if(!data || Object.keys(data).length < 1) throw new Error('EmptyData')
 
-        return {code: 200, data, status: true, message: message || 'OK'}
+        return {code, data, status: true, message: message || 'OK'}
 
     } catch (error) { 
         switch(error.message){
