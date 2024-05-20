@@ -1,8 +1,13 @@
-const {statusLogger, dataLogger} = require('../utils/HttpLogger')
-const mysqlErrCode = require('../utils/MysqlErrorCode')
-const {create, read, update, destroy, sendResponse} = require('./base.controller')
+const baseController = require('./base.controller')
+const RolesModel = require('../models/roles.model')
+const model = new RolesModel
 
+const controller = (method) => (req, res, next) => baseController[method](req, res, next, model)
 
 module.exports = {
-    create, read, update, destroy, sendResponse
+    create: controller('create'),
+    read: controller('read'),
+    update: controller('update'),
+    destroy: controller('destroy'),
+    sendResponse: baseController.sendResponse
 }

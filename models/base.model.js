@@ -1,6 +1,6 @@
 const {pool} = require('../database').init()
 const poolConnection = pool.createPool()
-const loging = false
+const loging = require('../config').logging
 
 class BaseModel {
 
@@ -29,7 +29,7 @@ class BaseModel {
 
         try {
             const {query, param} = this.queryBuilder.readByPk({id})
-
+            
             const result = await executeMysqlSelect(query, param)
             if(result.length == 0) return resultHandler({
                 status: false,

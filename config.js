@@ -8,6 +8,8 @@ module.exports = {
         password: process.env.LOCAL_DB_PASSWORD,
         database: 'bkm_db_test'
     },
+    logging: true,
+    
     // start databse database migration
     migrating: true,
 

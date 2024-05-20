@@ -5,6 +5,14 @@ function mysqlErrCode(error){
         switch(error.code){
             case 'ER_ACCESS_DENIED_ERROR':
                 return statusLogger({code: 403})
+            case 'ER_INVALID_TOKEN':
+                return statusLogger({code: 403, message: 'Invalid Token'})
+            case 'ER_EXPIRED_TOKEN':
+                return statusLogger({code: 403, message: 'Expired Token'})
+            case 'ER_INVALID_CREDENTIAL':
+                return statusLogger({code: 403, message: 'Invalid Credentials'})
+            case 'ER_NO_TOKEN':
+                return statusLogger({code: 403, message: 'No user token found'})
             case 'ER_BAD_DB_ERROR':
                 return statusLogger({code: 404})
             case 'ER_NOT_FOUND':

@@ -1,6 +1,7 @@
 const {statusLogger, dataLogger} = require('../utils/HttpLogger')
 const mysqlErrHandler = require('../utils/MysqlErrorCode')
-const logging = false
+const CustomError = require('../utils/CustomError')
+const logging = require('../config').logging
 
 async function create(req, res, next, model){
     if(req.result?.status === false) return next()
@@ -146,14 +147,6 @@ function requestType(req) {
         return 'empty'
     } else {
         return 'unknown'
-    }
-}
-
-class CustomError extends Error {
-    constructor(code, message){
-        super(message)
-        this.code = code
-        this.name = this.constructor.name
     }
 }
 

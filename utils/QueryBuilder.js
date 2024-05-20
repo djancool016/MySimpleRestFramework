@@ -31,7 +31,7 @@ class QueryBuilder {
     readByPk(requestBody){
         try {
             return {
-                query: `SELECT ${this.select} FROM ${this.table} ${this.join} WHERE id = ?`,
+                query: `SELECT ${this.select} FROM ${this.table} ${this.join} WHERE ${this.table}.id = ?`,
                 param: [requestBody.id]
             }
         } catch (error) {
@@ -55,9 +55,10 @@ class QueryBuilder {
         try {
             const where = this.where(requestBody, patternMatching)
             const paging = this.paging(requestBody)
+            const binary = !patternMatching ? 'BINARY' : ''
 
             return {
-                query: `SELECT ${this.select} FROM ${this.table} ${this.join} WHERE ${where} ${paging}`,
+                query: `SELECT ${this.select} FROM ${this.table} ${this.join} WHERE ${binary} ${where} ${paging}`,
                 param: paramsBuilder(requestBody, [], true, patternMatching)
             }
 

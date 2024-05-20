@@ -4,7 +4,7 @@ const QueryBuilder = require('../utils/QueryBuilder')
 const init = {
     table: 'users',
     includes: [
-        'id','roleId','username', 'email', 
+        'id','roleId','username', 'password','email', 
         'name', 'phone', 'address','nik', 'status'
     ],
     association: [
