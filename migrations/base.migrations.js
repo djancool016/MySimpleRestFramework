@@ -1,3 +1,5 @@
+const logging = require('../config').logging
+
 class Migration {
     static queryBuilder({columns = [], tableName, timestamp}){
         try {
@@ -52,10 +54,10 @@ class Migration {
             }
         }
         if (migrationErrors.length > 0) {
-            console.error(`Migration Error : ${JSON.stringify(migrationErrors)}`)
+            if(logging) console.error(`Migration Error : ${JSON.stringify(migrationErrors)}`)
             throw new Error(`MigrationError`);
         }
-        console.log('All migrations completed successfully.')
+        if(logging) console.log('All migrations completed successfully.')
     }
 }
 

@@ -1,4 +1,5 @@
 const {statusLogger} = require('./HttpLogger')
+const logging = require('../config').logging
 
 function mysqlErrCode(error){
     try {
@@ -45,7 +46,7 @@ function mysqlErrCode(error){
                 return statusLogger({code: 500})
         }
     } catch (error) {
-        console.error('mysqlErrCode :' + error)
+        if(logging) console.error('mysqlErrCode :' + error)
         return statusLogger({code: 500})
     }
 }

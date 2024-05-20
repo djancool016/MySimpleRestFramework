@@ -39,44 +39,43 @@ describe('Test Build MYSQL2 Query using class QueryBuilder', () => {
     })
 
     test('Test "create" method should return correct query and param', () => {
-        const result = queryParams.create
+        const requestBody = {id: 1, username: 'Dwi J'}
+        const result = queryParams.create(requestBody)
 
-        console.log(result)
         expect(result.query).toBeDefined()
-        expect(result.param.length).toBe(3)
+        expect(result.param.length).toBe(2)
     })
     test('Test "readByPk" method should return correct query and param', () => {
-        const result = queryParams.readByPk
+        const requestBody = {id: 1, username: 'Dwi J'}
+        const result = queryParams.readByPk(requestBody)
 
-        console.log(result)
         expect(result.query).toBeDefined()
         expect(result.param.length).toBe(1)
     })
     test('Test "readAll" method should return correct query and param', () => {
-        const result = queryParams.readAll
+        const result = queryParams.readAll({})
 
-        console.log(result)
         expect(result.query).toBeDefined()
         expect(result.param.length).toBe(0)
     })
     test('Test "readByKeys" method should return correct query and param', () => {
-        const result = queryParams.readByKeys
+        const requestBody = {username: 'Dwi J', password: 1234}
+        const result = queryParams.readByKeys(requestBody)
 
-        console.log(result)
         expect(result.query).toBeDefined()
-        expect(result.param.length).toBe(5)
+        expect(result.param.length).toBe(2)
     })
     test('Test "update" method should return correct query and param', () => {
-        const result = queryParams.update
+        const requestBody = {id: 1, username: 'Dwi J', email: 'dwij@email.com'}
+        const result = queryParams.update(requestBody)
 
-        console.log(result)
         expect(result.query).toBeDefined()
         expect(result.param.length).toBe(3)
     })
     test('Test "delete" method should return correct query and param', () => {
-        const result = queryParams.delete
+        const requestBody = {id: 1}
+        const result = queryParams.delete(requestBody)
 
-        console.log(result)
         expect(result.query).toBeDefined()
         expect(result.param.length).toBe(1)
     })

@@ -1,3 +1,5 @@
+const logging = require('../config').logging
+
 class Seeder {
     /**
      * 
@@ -33,10 +35,10 @@ class Seeder {
 
             // using Promise.all to reduce potential race condition
             await Promise.all(bulkInsertPromises)
-            console.log(`Seeder successfully populate table ${table}`)
+            if(logging) console.log(`Seeder successfully populate table ${table}`)
 
         } catch (error) {
-            console.error(error.message)
+            if(logging) console.error(error.message)
             throw error
         }
     }
@@ -53,7 +55,7 @@ class Seeder {
                 await Seeder.#seedTable(seeder, db)
             }
         } catch (error) {
-            console.error(error.message)
+            if(logging) console.error(error.message)
             throw error
         }
     }

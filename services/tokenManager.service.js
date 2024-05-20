@@ -1,5 +1,6 @@
 require('dotenv').config()
 const util = require('util')
+const logging = require('../config').logging
 
 const jwt = require('jsonwebtoken')
 const signAsync = util.promisify(jwt.sign)
@@ -20,6 +21,7 @@ class TokenManager {
             return await signAsync(payload, secret, { expiresIn })
 
         } catch (error) {
+            if(logging) console.error(error)
             throw new Error('Error generate token: ' + error)
         }
     }
@@ -33,7 +35,7 @@ class TokenManager {
             return await verifyAsync(token, secret)
 
         } catch (error) {
-            console.log(error)
+            if(logging) console.error(error)
             throw new Error('Token verification error: ' + error)
         }
     }
@@ -56,6 +58,7 @@ class TokenManager {
             return {refreshToken, accessToken}
 
         } catch (error) {
+            if(logging) console.error(error)
             throw new Error('Authenticated user token error: ' + error)
         }
     }
@@ -80,6 +83,7 @@ class TokenManager {
             )
 
         } catch (error) {
+            if(logging) console.error(error)
             throw new Error('Token rotation error: ' + error)
         }
     }

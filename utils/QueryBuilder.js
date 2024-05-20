@@ -1,3 +1,5 @@
+const logging = require('../config').logging
+
 class QueryBuilder {
     constructor({table = '', includes = [], alias = [], association = []}){
         this.table = table
@@ -24,7 +26,7 @@ class QueryBuilder {
                 param: paramsBuilder(requestBody, [], false, false)
             }
         } catch (error) {
-            console.error(error)
+            if(logging) console.error(error)
             throw queryErrorHandler(error)
         }
     }
@@ -35,7 +37,7 @@ class QueryBuilder {
                 param: [requestBody.id]
             }
         } catch (error) {
-            console.error(error)
+            if(logging) console.error(error)
             throw queryErrorHandler(error)
         }
     }
@@ -47,7 +49,7 @@ class QueryBuilder {
                 param: []
             }
         } catch (error) {
-            console.error(error)
+            if(logging) console.error(error)
             throw queryErrorHandler(error)
         }
     }
@@ -63,7 +65,7 @@ class QueryBuilder {
             }
 
         } catch (error) {
-            console.error(error)
+            if(logging) console.error(error)
             throw queryErrorHandler(error)
         }
     }
@@ -85,7 +87,7 @@ class QueryBuilder {
             }
 
         } catch (error) {
-            console.error(error)
+            if(logging) console.error(error)
             throw queryErrorHandler(error)
         }
     }
@@ -96,7 +98,7 @@ class QueryBuilder {
                 param: [requestBody.id]
             }
         } catch (error) {
-            console.error(error)
+            if(logging) console.error(error)
             throw queryErrorHandler(error)
         }
     }
