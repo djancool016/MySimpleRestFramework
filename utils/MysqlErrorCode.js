@@ -19,29 +19,31 @@ function mysqlErrCode(error){
             case 'ER_NOT_FOUND':
                 return statusLogger({code: 404})
             case 'ER_DUP_ENTRY':
-                return statusLogger({code: 409, message: 'Duplicate Entry Error'})
+                return statusLogger({code: 409, message: error.message})
             case 'ER_NO_SUCH_TABLE':
-                return statusLogger({code: 404, message: 'Table Not Exist'})
+                return statusLogger({code: 404, message: error.message})
             case 'ER_NO_DATA':
-                return statusLogger({code: 404, message: 'Data Not Found'})
+                return statusLogger({code: 404, message: error.message})
             case 'ER_PARSE_ERROR':
-                return statusLogger({code: 400, message: 'Query Syntax Error'})
+                return statusLogger({code: 400, message: error.message})
             case 'ER_INVALID_BODY':
-                return statusLogger({code: 400, message: 'Invalid request body'})
+                return statusLogger({code: 400, message: error.message})
+            case 'ER_BAD_FIELD_ERROR':
+                return statusLogger({code: 400, message: 'Invalid Key'})
             case 'ER_ROW_IS_REFERENCED_2':
-                return statusLogger({code: 400, message: 'Cannot delete or update a parent row: a foreign key constraint fails'})
+                return statusLogger({code: 400, message: error.message})
             case 'ER_CON_COUNT_ERROR':
-                return statusLogger({code: 503, message: 'Service Unavailable - The maximum number of connections to the database has been reached'})
+                return statusLogger({code: 503, message: error.message})
             case 'ER_DB_CREATE_EXISTS':
-                return statusLogger({code: 409, message: 'The specified database already exists'})
+                return statusLogger({code: 409, message: error.message})
             case 'ER_TABLE_EXISTS_ERROR':
-                return statusLogger({code: 409, message: 'The specified table already exists'})
+                return statusLogger({code: 409, message: error.message})
             case 'ER_LOCK_WAIT_TIMEOUT':
-                return statusLogger({code: 503, message: 'Service Unavailable - Timeout waiting for a lock'})
+                return statusLogger({code: 503, message: error.message})
             case 'ER_DATA_TOO_LONG':
-                return statusLogger({code: 400, message: 'Data too long for column'})
+                return statusLogger({code: 400, message: error.message})
             case 'ER_TRUNCATED_WRONG_VALUE':
-                return statusLogger({code: 400, message: 'Truncated incorrect INTEGER value'})
+                return statusLogger({code: 400, message: error.message})
             default:
                 return statusLogger({code: 500})
         }

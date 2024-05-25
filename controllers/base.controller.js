@@ -14,7 +14,7 @@ async function create(req, res, next, model){
         if(result.status){
             req.result = dataLogger({code: 201, data: result.data})
         }else {
-            req.result = statusLogger({code: 400})
+            throw result
         }
         // Continue to next middleware
         return next()
@@ -52,7 +52,7 @@ async function read(req, res, next, model){
         if(result.status){
             req.result = dataLogger({data: result.data})
         }else{
-            req.result = statusLogger({code: 404, message: result.message || ''})
+            throw result
         }
 
         return next()
@@ -72,7 +72,7 @@ async function update(req, res, next, model){
         if(result.data){
             req.result = dataLogger({data: result.data})
         }else{
-            req.result = statusLogger({code: 400})
+            throw result
         }
         return next()
 
@@ -107,7 +107,7 @@ async function destroy(req, res, next, model){
         if(result.data){
             req.result = dataLogger({data: result.data})
         }else{
-            req.result = statusLogger({code: 400})
+            throw result
         }
         return next()
 
