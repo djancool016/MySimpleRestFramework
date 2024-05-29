@@ -1,7 +1,8 @@
 const { sendResponse } = require('./base.controller');
 
 module.exports = {
-    roles: require('./roles.controller'),
-    users: require('./users.controller'),
+    status: require('./status.controller'),
+    loan: require('./loan.controller'),
+    loanPayment: require('./loanPayment.controller'),
     sendResponse
 }

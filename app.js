@@ -2,7 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const app = express()
-const PORT = process.env.PORT || 5100
+const PORT = process.env.PORT || 5200
 
 const {db, truncateAll} = require('./database').init()
 const {migrating, seeding, resetTables} = require('./config')

@@ -1,4 +1,5 @@
 const logging = require('../config').logging
+const CustomError = require('../utils/CustomError')
 
 class QueryBuilder {
     constructor({table = '', includes = [], alias = [], association = []}){
@@ -56,6 +57,8 @@ class QueryBuilder {
     readByKeys(requestBody, patternMatching = true){
         try {
             const where = this.where(requestBody, patternMatching)
+
+            if(!where) throw new CustomError('ER_NOT_FOUND', 'not found')
             const paging = this.paging(requestBody)
             const binary = !patternMatching ? 'BINARY' : ''
 

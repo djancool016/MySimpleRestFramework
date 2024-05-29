@@ -6,7 +6,7 @@ module.exports = {
         host: 'localhost',
         user: 'root',
         password: process.env.LOCAL_DB_PASSWORD,
-        database: 'bkm_db_test'
+        database: 'bkm_loan_db_test'
     },
     logging: true,
     

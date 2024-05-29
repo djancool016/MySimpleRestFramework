@@ -1,6 +1,7 @@
 const {pool} = require('../database').init()
 const poolConnection = pool.createPool()
 const loging = require('../config').logging
+const CustomError = require('../utils/CustomError')
 
 class BaseModel {
 
@@ -12,7 +13,7 @@ class BaseModel {
     async create(requestBody){
         try {
             const {query, param} = this.queryBuilder.create(requestBody)
-
+            console.log({query, param})
             const result = await executeMysqlQuery(query, param)
             return resultHandler({data: result})
 
@@ -28,12 +29,14 @@ class BaseModel {
     async findByPk(id){
 
         try {
+            if(!id) throw new CustomError('ER_BAD_FIELD_ERROR', 'Empty parameter')
+
             const {query, param} = this.queryBuilder.readByPk({id})
             
             const result = await executeMysqlSelect(query, param)
             if(result.length == 0) return resultHandler({
                 status: false,
-                code: 'ERR_NOT_FOUND', 
+                code: 'ER_NOT_FOUND', 
                 message: 'data not found'
             })
             return resultHandler({data: result})
@@ -56,7 +59,7 @@ class BaseModel {
             const result = await executeMysqlSelect(query, param)
             if(result.length == 0) return resultHandler({
                 status: false,
-                code: 'ERR_NOT_FOUND', 
+                code: 'ER_NOT_FOUND', 
                 message: 'data not found'
             })
             return resultHandler({data: result})
@@ -73,13 +76,14 @@ class BaseModel {
     async findByKeys(requestBody, patternMatching = true){
         
         try {
-            const {query, param} = this.queryBuilder.readByKeys(requestBody, patternMatching)
+            if(Object.keys(requestBody).length < 1) throw new CustomError('ER_NOT_FOUND', 'not found')
 
+            const {query, param} = this.queryBuilder.readByKeys(requestBody, patternMatching)
             const result = await executeMysqlSelect(query, param)
 
             if(result.length == 0) return resultHandler({
                 status: false,
-                code: 'ERR_NOT_FOUND', 
+                code: 'ER_NOT_FOUND', 
                 message: 'data not found'
             })
             return resultHandler({data: result})
@@ -122,6 +126,8 @@ class BaseModel {
     }
     async delete(id){
         try {
+            if(!id) throw new CustomError('ER_BAD_FIELD_ERROR', 'Empty parameter')
+                
             const {query, param} = this.queryBuilder.delete({id})
 
             const result = await executeMysqlQuery(query, param)
