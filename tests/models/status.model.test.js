@@ -1,5 +1,6 @@
-const BaseTestModel = require('./base.test.model')
+const ModelTester = require('./tester.model')
 const StatusModel = require('../../models/status.model')
+
 const testObj = {
     create: [
         {
@@ -82,7 +83,7 @@ const testObj = {
         }
     ]
 }
-const model = new StatusModel()
-const test = new BaseTestModel(testObj, model)
+const modules = new StatusModel()
+const test = new ModelTester(testObj, modules)
 
 test.runTest()

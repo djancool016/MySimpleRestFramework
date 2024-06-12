@@ -8,6 +8,7 @@ const {db, truncateAll} = require('./database').init()
 const {migrating, seeding, resetTables} = require('./config')
 const {seedTables} = require('./seeders')
 const {migration} = require('./migrations')
+const {router, errRoute} = require('./routes')
 
 db.connect()
     .then(async db => {
@@ -19,5 +20,6 @@ db.connect()
 
 app.use(cookieParser())
 app.use(bodyParser.json())
-app.use('/api', require('./routes'))
+app.use('/api', router)
+app.use(errRoute)
 app.listen(PORT, () => console.log(`This server is running on port : http://localhost:${PORT}`))

@@ -1,24 +1,29 @@
 require('dotenv').config()
-const axios = require('axios')
-const CustomError = require('../utils/CustomError')
-const url = process.env.USER_MANAGEMENT_API_URL
-const logging = require('../config').logging
-const mysqlErrHandler = require('../utils/MysqlErrorCode')
+const api = process.env.USER_MANAGEMENT_API_URL
+const {axiosGet, axiosPost} = require('./base.service')
 
-async function findByPk(id){
-    try {
-        if(!id) throw new CustomError('ER_NOT_FOUND')
 
-        const user = await axios.get(`${url}/users/${id}`)
+async function checkApi(req, res, next, header) {
+    const url = `${api}/health`
+    return await axiosGet(req, next, url, header)
+}
 
-        if(!user.status) throw new CustomError('ER_NOT_FOUND')
+async function login(req, res, next, header){
+    const url = `${api}/users/login`
+    return await axiosPost(req, next, url, header)
+}
 
-        return user
+async function authorize(req, res, next, header){
+    const url = `${api}/users/auth`
+    return await axiosPost(req, next, url, header)
+}
 
-    } catch (error) {
-        
-        if(logging) console.error(error)
+async function findByPk(req, res, next, header){
+    const id = req.body?.userId
+    const url = `${api}/users/${id}`
+    return await axiosGet(req, next, url, header)
+}
 
-        throw mysqlErrHandler(error)
-    }
+module.exports = {
+    checkApi, login, authorize, findByPk
 }

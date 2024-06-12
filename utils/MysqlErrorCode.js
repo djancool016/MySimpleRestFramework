@@ -16,6 +16,8 @@ function mysqlErrCode(error){
                 return statusLogger({code: 403, message: 'No user token found'})
             case 'ER_BAD_DB_ERROR':
                 return statusLogger({code: 404})
+            case 'ER_PAYMENT_FAILED':
+                return statusLogger({code: 404, message: error.message})
             case 'ER_NOT_FOUND':
                 return statusLogger({code: 404})
             case 'ER_DUP_ENTRY':
@@ -44,6 +46,8 @@ function mysqlErrCode(error){
                 return statusLogger({code: 400, message: error.message})
             case 'ER_TRUNCATED_WRONG_VALUE':
                 return statusLogger({code: 400, message: error.message})
+            case 'ECONNREFUSED':
+                return statusLogger({code: 504})
             default:
                 return statusLogger({code: 500})
         }

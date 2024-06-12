@@ -1,4 +1,4 @@
-const BaseTestModel = require('./base.test.model')
+const BaseTestModel = require('./tester.model')
 const LoanPaymentModel = require('../../models/loanPayment.model')
 const {changeObjKey} = require('../../utils/TestUtils')
 
